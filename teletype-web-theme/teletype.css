@@ -1,0 +1,431 @@
+/*
+ * Teletype Theme by ZypherFunk
+ * Licensed under MIT License
+ * https://github.com/zypherfunk/teletype-web-theme
+ */
+
+:root {
+  --bg: #393E46;
+  --fg: #F7F7F7;
+  --sectionbg: #F7F7F7;
+  --sectionfg: #181818;
+  --cardbg: #F7F7F7;
+  --cardfg: #181818;
+  --cardborder: #181818;
+  --cardhoverbg: #181818;
+  --cardhoverfg: #F7F7F7;
+  --cardhoverborder: #181818;
+  --navactivebg: #EEEEEE;
+  --deactive: #929AAB;
+  --heading: #181818;
+  --navheading: #F7F7F7;
+  --navactivefg: #181818;
+  --navbg: #181818;
+  --list: #929AAB;
+  --codebg: #181818;
+  --codefg: #EEEEEE;
+  --link: #929AAB;
+  --footerbg: #181818;
+  --scrollbartrack: transparent;
+  --scrollbarthumb: #F7F7F7CC; 
+}
+
+@font-face {
+  font-family: "BebasNeue";
+  src: url("fonts/BebasNeue-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "RozhaOne";
+  src: url("fonts/RozhaOne-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Oswald";
+  src: url("fonts/Oswald-VariableFont_wght.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Raleway";
+  src: url("fonts/Raleway-VariableFont_wght.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "OpenSans";
+  src: url("fonts/OpenSans-VariableFont_wdth\,wght.ttf") format("truetype");
+}
+
+body {
+  font-family: "Raleway", sans-serif;
+  background-color: var(--bg);
+  font-size: 1.5rem;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  color: var(--fg);
+  text-align: justify;
+  overflow: overlay;
+  scrollbar-gutter: auto;
+}
+
+::-webkit-scrollbar {
+  width: 0.1rem;
+  height: 0.1rem;
+}
+
+::-webkit-scrollbar:hover {
+  width: 0.8rem;
+  height: 0.8rem;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbartrack);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbarthumb);
+  border-radius: 2rem;
+}
+
+pre::-webkit-scrollbar {
+  width: 0.3rem;
+  height: 0.3rem;
+}
+
+pre::-webkit-scrollbar:hover {
+  width: 0.3rem;
+  height: 0.3rem;
+}
+
+.container {
+  margin: 10rem 20rem;
+}
+
+.container h1, h2, h3 {
+  color: var(--fg);
+}
+
+.container section {
+  margin: 0;
+  padding: 5rem 5rem;
+  background-color: var(--sectionbg);
+  color: var(--sectionfg);
+}
+
+.container section h1, h2, h3 {
+  color: var(--heading);
+}
+
+a {
+  color: var(--link);
+  text-decoration: none;
+}
+
+h1 {
+  text-align: left;
+  color: var(--heading);
+  font-family: "Oswald", Arial, Helvetica, sans-serif;
+  font-size: 4rem;
+  text-decoration: underline;
+}
+
+h2 {
+  color: var(--heading);
+  font-family: "Oswald", Arial, Helvetica, sans-serif;
+  font-size: 3rem;
+  text-decoration: underline;
+}
+
+h3 {
+  color: var(--heading);
+  font-family: "Oswald", Arial, Helvetica, sans-serif;
+  font-size: 2rem;
+  text-decoration: underline;
+}
+
+ul li {
+  display: block;
+}
+
+ul li:before {
+  content: "◉";
+  counter-increment: item;
+  color: var(--list);
+  margin-left: -3rem;
+  margin-right: 1.5rem;
+}
+
+ol {
+  counter-reset: item;
+}
+
+ol li {
+  display: block;
+}
+
+ol li:before {
+  content: "<" counter(item) ">";
+  counter-increment: item;
+  color: var(--list);
+  margin-left: -3.5rem;
+  margin-right: 1rem;
+}
+
+li {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 2rem;
+}
+
+ol pre,
+ul pre {
+  margin-left: 3rem;
+}
+
+ol p,
+ul p {
+  margin-left: 3rem;
+}
+
+
+pre {
+  display: block;
+  padding: 2rem 3rem 0.5rem;
+  font-family: monospace;
+  background-color: var(--codebg);
+  color: var(--codefg);
+  border-radius: 1rem;
+  overflow: auto;
+}
+
+code {
+  overflow-wrap: break-word;
+  font-family: monospace;
+  background-color: var(--codebg);
+  color: var(--codefg);
+  border-radius: 0.2rem;
+}
+
+nav {
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  background-color: var(--navbg);
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+nav h1 {
+  color: var(--navheading);
+  font-size: 2rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  text-decoration: none;
+}
+
+nav img {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+nav a {
+  font-weight: 600;
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: center;
+  color: var(--deactive);
+  text-decoration: none;
+  height: 4.5rem;
+}
+
+nav .nav-active {
+  color: var(--navactivefg);
+  background-color: var(--navactivebg);
+  text-decoration: underline;
+}
+
+footer {
+  text-align: center;
+  background-color: var(--footerbg);
+  margin-top: auto;
+}
+
+.footer-content {
+  margin: 5rem 3rem;
+}
+
+.img-center {
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.img-container img {
+  width: 100%;
+  height: 100%;
+}
+
+.card {
+  background-color: var(--cardbg);
+  color: var(--cardfg);
+  border-color: var(--cardborder);
+  border: solid;
+  border-radius: 1rem;
+  padding: 2rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.card h1, h2, h3 {
+  color: var(--cardfg);
+  font-size: 2rem;
+  text-decoration: none;
+  margin: 0;
+}
+
+.card a {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.card:hover {
+  background-color: var(--cardhoverbg);
+  color: var(--cardhoverfg);
+  border-color: var(--cardhoverborder);
+}
+
+.card:hover h1, h2, h3 {
+  color: var(--cardhoverfg);
+}
+
+.card:hover a {
+  color: var(--cardhoverfg);
+}
+
+.card a:hover {
+  background-color: var(--cardhoverfg);
+  color: var(--cardhoverbg);
+}
+
+@media screen and (max-width: 1600px) {
+  .container {
+    margin: 8rem 10rem;
+    padding: 2rem;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+
+  nav {
+    position: relative;
+    width: unset;
+    flex-direction: column;
+  }
+
+  nav a {
+    width: 100%;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    height: 1rem;
+  }
+
+  .container {
+    margin: 2rem 4rem;
+  }
+  
+  .container section {
+    padding: 2rem;
+  }
+}
+
+@media screen and (max-width: 640px) {
+
+  body {
+    font-size: 1rem;
+  }
+
+  .container {
+    margin: 1rem;
+  }
+  .container section {
+    padding: 1rem;
+  }
+
+  h1 {
+    font-size: 3rem;
+  }
+
+  h2 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1rem;
+  }
+
+  ul li {
+    display: block;
+  }
+
+  ul li:before {
+    content: "◉";
+    counter-increment: item;
+    color: var(--list);
+    margin-left: -3rem;
+    margin-right: 2rem;
+  }
+
+  ol {
+    counter-reset: item;
+  }
+
+  ol li {
+    display: block;
+  }
+
+  ol li:before {
+    content: "<" counter(item) ">";
+    counter-increment: item;
+    color: var(--list);
+    margin-left: -4rem;
+    margin-right: 2rem;
+  }
+
+  li {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 2rem;
+  }
+
+  ol pre,
+  ul pre {
+    margin-left: 0;
+  }
+
+  ol p,
+  ul p {
+    margin-left: 0;
+  }
+
+
+  .container {
+    padding: 2rem 1rem;
+  }
+
+  ol pre,
+  ul pre {
+    margin-left: 0;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .footer-content {
+    margin: 2rem 1rem;
+  }
+}

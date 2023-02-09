@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <title>
+    ZypherFunk - Wiki
+  </title>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta property="og:title" content="ZypherFunk - Wiki" />
+  <meta property="og:description" content="ZypherFunk's Alexandria" />
+  <meta property="og:image" content="https://zypherfunk.github.io/ogimage.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="canonical" href="https://zypherfunk.github.io" />
+  <link rel="stylesheet" type="text/css" href="teletype-web-theme/teletype.css" />
+
+</head>
+
+<body>
+
+  <nav class="navbar">
+    <a href="/">
+      <img src="favicon.png" width="32" height="32">
+      <h1 class="p-2">ZypherFunk</h1>
+    </a>
+
+    <a href="index.html">
+      Home
+    </a>
+
+    <a class="nav-active" href="wiki.html">
+      Wiki
+    </a>
+
+    <a href="portal.html">
+      Portal
+    </a>
+
+    <a href="sentients.html">
+      Sentients
+    </a>
+
+    <a href="fav.html">
+      Fav
+    </a>
+    <a href="about.html">
+      About
+    </a>
+  </nav>
+
+  <div class="container">
+    <section>
+      <h1>
+        Wiki
+      </h1>
+  
+      <h1>
+        Guix Guide
+      </h1>
+  
+      <h2>
+        Setting Up NPM for Global Install
+      </h2>
+  
+      <p>
+        Due to the filesystem structure that guix follows, it is not possible to install npm packages globally,
+        the following guide helps you configure a local folder for installing global npm packages
+      </p>
+  
+      <ol>
+  
+        <li>
+          Install node from guix repo
+        </li>
+  
+        <p>
+          Either install it into user's guix profile using the following command:
+        </p>
+  
+        <pre>
+$ guix pull
+$ guix install node
+        </pre>
+  
+        <p>
+          Or install it system-wide by adding the line <code>(specification->package "node")</code> to your system's config file <code>/etc/config.scm</code> as shown below:
+        </p>
+  
+        <pre>
+(operating-system
+  ...
+  (packages
+    (append
+      (list
+        ...
+        (specification->package "node")
+        ...)
+      %base-packages))
+...)
+        </pre>
+  
+        <p>
+          Reconfigure the system if installing <code>node</code> system-wide
+        </p>
+        <pre>
+$ guix pull
+$ sudo guix system reconfigure /etc/config.scm
+        </pre>
+  
+        <li>
+          Create a folder for npm global installation of packages in <code>.vnode</code> directory in home
+          directory and enable it
+        </li>
+  
+        <pre>
+$ mkdir $HOME/.vnode
+$ npm config set prefix "$HOME/.vnode"
+        </pre>
+  
+        <li>
+          Add the bin folder inside <code>.vnode</code> directory to <code>~/.bashrc</code> or
+          <code>~/.zshrc</code> and then source the file. It's recommended that you logout and log back in.
+          Otherwise, you'll need to source the directory everytime you need to use the npm.
+        </li>
+  
+        <pre>
+$ echo "export PATH=$HOME/.vnode/bin:$PATH" >> ~/.bashrc
+$ source ~/.bashrc
+        </pre>
+  
+        <li>
+          Install npm globally and it will install into that directory
+        </li>
+  
+        <pre>
+$ npm install -g npm
+        </pre>
+  
+        <li>
+          Now add the following preinstall script into
+          <code>$HOME/.vnode/lib/node_modules/.hooks/preinstall</code>
+        </li>
+  
+        <pre>
+#/usr/bin/env bash
+
+pkg_path=$PWD
+
+function patch_shebang() {
+  file=$1
+  python_bin=`type -p python`
+  ruby_bin=`type -p ruby`
+  env_bin=`type -p env`
+  bash_bin=`type -p bash`
+  
+  if [ -n "$env_bin" ]; then
+    sed -i -uE "s|^#!.+/env|#!${env_bin}|" $file
+  elif [ -n "$bash_bin" ]; then
+    sed -i -uE "s|^#!.+/bash|#!${bash_bin}|" $file
+  elif [ -n "$python_bin" ]; then
+      sed -i -uE "s|^#!.+/bash|#!${python_bin}|" $file
+  elif [ -n "$ruby_bin" ]; then
+      sed -i -uE "s|^#!.+/bash|#!${ruby_bin}|" $file
+  fi
+}
+  
+files=`find $pkg_path -type f -exec grep -lE '^#!(.+ )' {} \;`
+  
+for file in $files; do
+  patch_shebang $file
+done
+        </pre>
+  
+        <li>
+          Allow execution of the script
+        </li>
+  
+        <pre>
+$ chmod a+rx $HOME/.vnode/node_modules/.hooks/preinstall
+        </pre>
+  
+        <li>
+          If everything went well, you will now be able to run <code>npm install -g package-name </code>
+    and install global packages into the newly created directory.
+          For local packages just copy the hook <code>myprojectdir/node_modules/.hooks/preinstall</code>.
+        </li>
+      </ol>
+  
+      <p>
+        <strong>Cheers,<br/>ZypherFunk</strong>
+      </p>
+    </section>
+    </div>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <p>
+        <strong>Created by</strong>
+        <a href="https://github.com/zypherfunk">ZypherFunk</a>. The
+        <a href="https://github.com/zypherfunk/zypherfunk.github.io">source code</a>
+        is licensed under
+        <a href="https://www.gnu.org/licenses/agpl-3.0.en.html">AGPL 3 or later</a>
+	. The css framework 
+	<a href="https://github.com/zypherfunk/teletype-web-theme">Teletype Web Theme</a>
+	is licensed under
+	<a href="https://raw.githubusercontent.com/zypherfunk/teletype-web-theme/main/LICENSE">MIT License</a>
+        . The website content is licensed under 
+        <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY SA 4.0</a>.
+      </p>
+    </div>
+  </footer>
+
+</body>
+
+</html>
